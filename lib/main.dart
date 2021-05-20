@@ -1,5 +1,6 @@
 import 'package:example/widget_arrows.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,9 +22,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   bool showArrows = true;
-  var arrString = [true,false,true];
-
-  
+  var isCheckConfirm = [false,false,false];
+  var isChecked = [false,false,false,false];
 
   @override
   Widget build(BuildContext context) => ArrowContainer(
@@ -36,87 +36,74 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Stack(children: [
-                    ArrowElement(
-                      show: showArrows,
-                      id: 'text',
-                      targetId: null,
-                      sourceAnchor: Alignment.bottomCenter,
-                      targetAnchor: Alignment.topCenter,
-                      color: Colors.black,
-                      child: RaisedButton(child: Text(""),color: Colors.purple, onPressed: () {
-
-                      },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                    ),ArrowElement(
-                      show: showArrows,
-                      id: 'text0',
-                      targetId: 'text3',
-                      sourceAnchor: Alignment.bottomCenter,
-                      targetAnchor: Alignment.topCenter,
-                      color: Colors.grey,
-                      child: RaisedButton(child: Text(""),color: Colors.purple, onPressed: () {
-
-                      },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                    ),ArrowElement(
-                      show: showArrows,
-                      id: 'text00',
-                      targetId: 'text4',
-                      sourceAnchor: Alignment.bottomCenter,
-                      targetAnchor: Alignment.topCenter,
-                      color: Colors.green,
-                      child: RaisedButton(child: Text("CNTT",textAlign: TextAlign.center,),color: Colors.purple, onPressed: () {
-
-                      },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                    )
-                  ],),
+                ArrowElement(
+                  show: isChecked[0],
+                  id: 'cntt',
+                  targetId: isCheckConfirm[0] ? 'p1' : null,
+                  sourceAnchor: Alignment.bottomCenter,
+                  targetAnchor: Alignment.topCenter,
+                  color: Colors.purple,
+                  child: RaisedButton(child: Text("Phòng CNTT",textAlign: TextAlign.center,),color: Colors.purple, onPressed: (){
+                    if(isChecked[1] && !isCheckConfirm[1]){
+                      setState(() {
+                        isCheckConfirm[0] = false;
+                      });
+                    }
+                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 ),
-                Row(children: [
-                  Expanded(child: ArrowElement(
-                    id: 'text2',
-                    targetIds: ['text'],
-                    sourceAnchor: Alignment.topCenter,
-                    targetAnchor: Alignment.bottomCenter,
-                    color: Colors.blue,
-                    child: RaisedButton(child: Text("Phòng kế toán",textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
-
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  )),
-                  SizedBox(width: 10),
-                  Expanded(child: ArrowElement(
-                    show: showArrows,
-                    id: 'text3',
-                    targetId: 'acc',
-                    sourceAnchor: Alignment.bottomCenter,
-                    color: Colors.yellow,
-                    child: RaisedButton(child: Text("Phòng kế hoạch",textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
-
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  )),
-                  SizedBox(width: 10),Expanded(child: ArrowElement(
-                    show: showArrows,
-                    id: 'text4',
-                    targetId: 'acc',
-                    color: Colors.green,
-                    sourceAnchor: Alignment.bottomCenter,
-                    child: RaisedButton(child: Text("Phòng hành chính",textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
-
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  ))
-                ],),
-                Align(
-                  alignment: Alignment.center,
-                  child: ArrowElement(
-                    show: showArrows,
-                    id: 'acc',
-                    targetIds: null,
-                    sourceAnchor: Alignment.topCenter,
-                    color: Colors.grey,
-                    child: RaisedButton(child: Text("Ban giám đốc",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  ),
+                ArrowElement(
+                  show: isChecked[1],
+                  id: 'p1',
+                  targetId: isChecked[1] ? ((!isCheckConfirm[0]) ? 'cntt' : (isCheckConfirm[1] ? 'p2' : null)) : null,
+                  sourceAnchor: isChecked[1] ? ((!isCheckConfirm[0]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
+                  targetAnchor: isChecked[1] ? ((!isCheckConfirm[0]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
+                  color: Colors.yellow,
+                  child: RaisedButton(child: Text("Phòng kế toán",textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
+                    setState(() {
+                      if (isCheckConfirm[1] && !isCheckConfirm[2]){
+                        isCheckConfirm[1] = false;
+                      }else{
+                        isCheckConfirm[0] = true;
+                      }
+                      isChecked[0] = true;
+                      isChecked[1] = true;
+                    });
+                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                ),
+                ArrowElement(
+                  show: isChecked[2],
+                  id: 'p2',
+                  targetId: isChecked[2] ? ((!isCheckConfirm[1]) ? 'p1' : (isCheckConfirm[2] ? 'p3' : null)) : null ,
+                  sourceAnchor: isChecked[2] ? ((!isCheckConfirm[1]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
+                  targetAnchor: isChecked[2] ? ((!isCheckConfirm[1]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
+                  color: Colors.green,
+                  child: RaisedButton(child: Text("Phòng kế hoạch",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
+                    if (isCheckConfirm[0]){
+                      setState(() {
+                        if (isCheckConfirm[2]){
+                          isCheckConfirm[2] = false;
+                        }else{
+                          isCheckConfirm[1] = true;
+                        }
+                        isChecked[2] = true;
+                      });
+                    }
+                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                ),
+                ArrowElement(
+                  id: 'p3',
+                  targetId: isChecked[3] ? ((!isCheckConfirm[2]) ? 'p2' : null) : null ,
+                  sourceAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
+                  targetAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
+                  color: Colors.red,
+                  child: RaisedButton(child: Text("Ban giám đốc",textAlign: TextAlign.center,),color: Colors.red, onPressed: () {
+                    if (!isCheckConfirm[2] && isCheckConfirm[1]){
+                      setState(() {
+                        isCheckConfirm[2] = true;
+                        isChecked[3] = true;
+                      });
+                    }
+                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 )
               ],
             ),
