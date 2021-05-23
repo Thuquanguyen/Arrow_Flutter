@@ -69,83 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 ),
-                ArrowElement(
-                  show: isChecked[2],
-                  id: 'p2',
-                  targetId: isChecked[2] ? ((!isCheckConfirm[1]) ? 'p1' : (isCheckConfirm[2] ? 'p3' : null)) : null ,
-                  sourceAnchor: isChecked[2] ? ((!isCheckConfirm[1]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                  targetAnchor: isChecked[2] ? ((!isCheckConfirm[1]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.green,
-                  child: RaisedButton(child: Text("Phòng kế hoạch",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                    if (isCheckConfirm[0] && !isCheckConfirm[3]){
-                      setState(() {
-                        if (isCheckConfirm[2]  || isCheckConfirm[1]){
-                          isCheckConfirm[2] = false;
-                        }else{
-                          isCheckConfirm[1] = true;
-                        }
-                        isChecked[2] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),ArrowElement(
-                  show: isChecked[3],
-                  id: 'p3',
-                  targetId: isChecked[3] ? ((!isCheckConfirm[2]) ? 'p2' : (isCheckConfirm[3] ? 'p4' : null)) : null ,
-                  sourceAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                  targetAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.green,
-                  child: RaisedButton(child: Text("Phòng ABC",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                    if (isCheckConfirm[1] && !isCheckConfirm[4]){
-                      setState(() {
-                        if (isCheckConfirm[3]  || isCheckConfirm[2]){
-                          isCheckConfirm[3] = false;
-                        }else{
-                          isCheckConfirm[2] = true;
-                        }
-                        isChecked[3] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),ArrowElement(
-                  show: isChecked[4],
-                  id: 'p4',
-                  targetId: isChecked[4] ? ((!isCheckConfirm[3]) ? 'p3' : (isCheckConfirm[4] ? 'p5' : null)) : null ,
-                  sourceAnchor: isChecked[4] ? ((!isCheckConfirm[3]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                  targetAnchor: isChecked[4] ? ((!isCheckConfirm[3]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.green,
-                  child: RaisedButton(child: Text("Phòng ABC",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                    if (isCheckConfirm[2] && !isCheckConfirm[5]){
-                      setState(() {
-                        if (isCheckConfirm[4]  || isCheckConfirm[3]){
-                          isCheckConfirm[4] = false;
-                        }else{
-                          isCheckConfirm[3] = true;
-                        }
-                        isChecked[4] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),ArrowElement(
-                  show: isChecked[5],
-                  id: 'p5',
-                  targetId: isChecked[5] ? ((!isCheckConfirm[4]) ? 'p4' : (isCheckConfirm[5] ? 'p6' : null)) : null ,
-                  sourceAnchor: isChecked[5] ? ((!isCheckConfirm[4]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                  targetAnchor: isChecked[5] ? ((!isCheckConfirm[4]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.green,
-                  child: RaisedButton(child: Text("Phòng BCD",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                    if (isCheckConfirm[3]){
-                      setState(() {
-                        if (isCheckConfirm[5] || isCheckConfirm[4]){
-                          isCheckConfirm[5] = false;
-                        }else{
-                          isCheckConfirm[4] = true;
-                        }
-                        isChecked[5] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),
+                _itemList(2),
+                _itemList(3),
+                _itemList(4),
+                _itemList(5),
                 ArrowElement(
                   id: 'p6',
                   targetId: isChecked[6] ? ((!isCheckConfirm[5]) ? 'p5' : null) : null ,
@@ -167,51 +94,26 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
 
-  Widget _itemList(List<String>  title,List<bool> arrConfirm,List<bool> arrCheck,int index) {
-    return ArrowElement(
-      show: arrCheck[index],
-      id: 'p$index',
-      targetId: arrCheck[index] ? ((!arrConfirm[index - 1]) ? 'p${index - 1}' : (arrConfirm[1] ? 'p${index + 1}' : null)) : null,
-      sourceAnchor: arrCheck[index] ? ((!arrConfirm[index - 1]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
-      targetAnchor: arrCheck[index] ? ((!arrConfirm[index - 1]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-      color: Colors.yellow,
-      child: RaisedButton(child: Text(title[index],textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
-        if (index == 0 ){
-          if(arrCheck[1] && !arrConfirm[1]){
-            setState(() {
-              arrConfirm[0] = false;
-            });
+  Widget _itemList(int index) => ArrowElement(
+    show: isChecked[index],
+    id: 'p$index',
+    targetId: isChecked[index] ? ((!isCheckConfirm[index - 1]) ? 'p${index - 1}' : (isCheckConfirm[index] ? 'p${index + 1}' : null)) : null,
+    sourceAnchor: isChecked[index] ? ((!isCheckConfirm[index - 1]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
+    targetAnchor: isChecked[index] ? ((!isCheckConfirm[index - 1]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
+    color: Colors.yellow,
+    child: RaisedButton(child: Text(listTitle[index],textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
+      print("indexxx : $index");
+      if ((index >= isCheckConfirm.length - 1) ? (isCheckConfirm[index-2]) : (isCheckConfirm[index-2] && !isCheckConfirm[index + 1])){
+        setState(() {
+          if (isCheckConfirm[index]  || isCheckConfirm[index-1]){
+            isCheckConfirm[index] = false;
+          }else{
+            isCheckConfirm[index-1] = true;
           }
-        }else if (index == 1){
-          setState(() {
-            if (arrConfirm[1] && !arrConfirm[2]){
-              arrConfirm[1] = false;
-            }else{
-              arrConfirm[0] = true;
-            }
-            arrCheck[1] = true;
-          });
-        }else if (index == arrCheck.length){
-          if (!arrConfirm[index] && arrConfirm[index-1]){
-            setState(() {
-              arrConfirm[index] = true;
-              arrCheck[index+1] = true;
-            });
-          }
-        }else{
-          if (arrConfirm[index-2] && !arrConfirm[index + 1]){
-            setState(() {
-              if (arrConfirm[index]  || arrConfirm[index-1]){
-                arrConfirm[index] = false;
-              }else{
-                arrConfirm[index-1] = true;
-              }
-              arrCheck[index] = true;
-            });
-          }
-        }
-      },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-    );
-  }
+          isChecked[index] = true;
+        });
+      }
+    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+  );
 }
 
