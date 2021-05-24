@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var isChecked = [false,false,false,false,false,false,false];
   int seleted = 0;
   var listTitle = ["Phòng CNTT","Phòng kế toán","Phòng kế hoạch","Phòng ABC","Phòng BCD","Phòng CDE","Ban giám đốc"];
+  TextStyle _style(Color color) => TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: color);
 
   @override
   Widget build(BuildContext context) => ArrowContainer(
@@ -33,156 +34,190 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             title: Text('Arrows everywhere'),
           ),
-          body: Container(child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ArrowElement(
-                  id: 'p0',
-                  targetId: isCheckConfirm[0] ? 'p1' : null,
-                  sourceAnchor: Alignment.bottomCenter,
-                  targetAnchor: Alignment.topCenter,
-                  color: Colors.purple,
-                  child: RaisedButton(child: Text("Phòng CNTT",textAlign: TextAlign.center,),color: Colors.purple, onPressed: (){
-                    if(isChecked[1] && !isCheckConfirm[1]){
-                      setState(() {
-                        isCheckConfirm[0] = false;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),
-                ArrowElement(
-                  show: isChecked[1],
-                  id: 'p1',
-                  targetIds: isChecked[1] ? (!isCheckConfirm[0] ? ['p0'] : _getTarget([1,2,3])) : null,
-                  sourceAnchor: isChecked[1] ? (!isCheckConfirm[0] ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
-                  targetAnchor: isChecked[1] ? (!isCheckConfirm[0] ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.yellow,
-                  child: RaisedButton(child: Text("Phòng kế toán",textAlign: TextAlign.center,),color: Colors.yellow, onPressed: () {
-                    setState(() {
-                      if (isCheckConfirm[1] && !isCheckConfirm[2]){
-                        isCheckConfirm[1] = false;
-                      }else{
-                        isCheckConfirm[0] = true;
-                      }
-                      isChecked[1] = true;
-                    });
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),
-                Row(children: [
-                  Expanded(child: ArrowElement(
-                    show: isChecked[2],
-                    id: 'p2',
-                    targetId: isChecked[2] ? (!isCheckConfirm[1] ? 'p1' : (isCheckConfirm[4] ? 'p5' : null)) : null ,
-                    sourceAnchor: isChecked[2] ? (!isCheckConfirm[1] ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                    targetAnchor: isChecked[2] ? (!isCheckConfirm[1] ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                    color: Colors.green,
-                    child: RaisedButton(child: Text("Phòng kế hoạch",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                      if (isCheckConfirm[0] && !isCheckConfirm[4]){
-                        setState(() {
-                          if (isCheckConfirm[0]  && isCheckConfirm[5]){
-                            isCheckConfirm[4] = false;
-                          }else{
-                            isCheckConfirm[1] = true;
-                          }
-                          isChecked[2] = true;
-                        });
-                      }
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  )),
-                  SizedBox(width: 10,),
-                  Expanded(child: ArrowElement(
-                    show: isChecked[3],
-                    id: 'p3',
-                    targetId: isChecked[3] ? ((!isCheckConfirm[2]) ? 'p1' : (isCheckConfirm[4] ? 'p5' : null)) : null ,
-                    sourceAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                    targetAnchor: isChecked[3] ? ((!isCheckConfirm[2]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                    color: Colors.green,
-                    child: RaisedButton(child: Text("Phòng ABC",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                      if (isCheckConfirm[0] && !isCheckConfirm[4]){
-                        setState(() {
-                          if (isCheckConfirm[0]  && isCheckConfirm[5]){
-                            isCheckConfirm[4] = false;
-                          }else{
-                            isCheckConfirm[2] = true;
-                          }
-                          isChecked[3] = true;
-                        });
-                      }
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  )),SizedBox(width: 10,),Expanded(child: ArrowElement(
-                    show: isChecked[4],
-                    id: 'p4',
-                    targetId: isChecked[4] ? ((!isCheckConfirm[3]) ? 'p1' : (isCheckConfirm[4] ? 'p5' : null)) : null ,
-                    sourceAnchor: isChecked[4] ? ((!isCheckConfirm[3]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                    targetAnchor: isChecked[4] ? ((!isCheckConfirm[3]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                    color: Colors.green,
-                    child: RaisedButton(child: Text("Phòng DEF",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                      if (isCheckConfirm[0] && !isCheckConfirm[4]){
-                        setState(() {
-                          if (isCheckConfirm[0]  && isCheckConfirm[5]){
-                            isCheckConfirm[4] = false;
-                          }else{
-                            isCheckConfirm[3] = true;
-                          }
-                          isChecked[4] = true;
-                        });
-                      }
-                    },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  ))
-                ],),ArrowElement(
-                  show: isChecked[5],
-                  id: 'p5',
-                  targetId: isChecked[5] ? ((!isCheckConfirm[4]) ? 'p4' : (isCheckConfirm[5] ? 'p6' : null)) : null ,
-                  sourceAnchor: isChecked[5] ? ((!isCheckConfirm[4]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter ,
-                  targetAnchor: isChecked[5] ? ((!isCheckConfirm[4]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.green,
-                  child: RaisedButton(child: Text("Phòng BCD",textAlign: TextAlign.center,),color: Colors.green, onPressed: () {
-                    if (isCheckConfirm[3]){
-                      setState(() {
-                        if (isCheckConfirm[5] || isCheckConfirm[4]){
-                          isCheckConfirm[5] = false;
-                        }else{
-                          isCheckConfirm[4] = true;
-                        }
-                        isChecked[5] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                ),
-                ArrowElement(
-                  id: 'p6',
-                  targetId: isChecked[6] ? ((!isCheckConfirm[5]) ? 'p5' : null) : null ,
-                  sourceAnchor: isChecked[6] ? ((!isCheckConfirm[5]) ? Alignment.topCenter : Alignment.bottomCenter) : Alignment.bottomCenter,
-                  targetAnchor: isChecked[6] ? ((!isCheckConfirm[5]) ? Alignment.bottomCenter : Alignment.topCenter) : Alignment.topCenter,
-                  color: Colors.red,
-                  child: RaisedButton(child: Text("Ban giám đốc",textAlign: TextAlign.center,),color: Colors.red, onPressed: () {
-                    if (!isCheckConfirm[5] && isCheckConfirm[4]){
-                      setState(() {
-                        isCheckConfirm[5] = true;
-                        isChecked[6] = true;
-                      });
-                    }
-                  },shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                )
-              ],
-            ),
-          ),margin: EdgeInsets.all(10),),
+          body: Column(children: [
+            Expanded(child: ArrowElement(
+              id: 'p0',
+              targetId: isCheckConfirm[0] ? 'p1' : null,
+              sourceAnchor: Alignment.bottomCenter,
+              targetAnchor: Alignment.topCenter,
+              color: Colors.purple,
+              child: IconButton(onPressed: null, icon: Icon(Icons.add_box,size: 50,)),
+            )),
+            Expanded(child: Row(children: [
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("AM",textAlign: TextAlign.center,style: _style(Colors.red))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("AF",textAlign: TextAlign.center,style: _style(Colors.red))),
+              )
+            ],)),
+            Expanded(child: Row(children: [
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("BID",textAlign: TextAlign.center,style: _style(Colors.red))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("IMPLE",textAlign: TextAlign.center,style: _style(Colors.black))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("BIDM",textAlign: TextAlign.center,style: _style(Colors.red))),
+              )
+            ],)),
+            Expanded(child: Center(child: ArrowElement(
+              id: 'p0',
+              targetId: isCheckConfirm[0] ? 'p1' : null,
+              sourceAnchor: Alignment.bottomCenter,
+              targetAnchor: Alignment.topCenter,
+              color: Colors.purple,
+              child: GestureDetector(child: Text("LEGAL",textAlign: TextAlign.center,style: _style(Colors.green))),
+            ))),
+            Expanded(child: Align(alignment: Alignment.centerRight,child: ArrowElement(
+              id: 'p0',
+              targetId: isCheckConfirm[0] ? 'p1' : null,
+              sourceAnchor: Alignment.bottomCenter,
+              targetAnchor: Alignment.topCenter,
+              color: Colors.purple,
+              child: GestureDetector(child: Text("AM",textAlign: TextAlign.center,style: _style(Colors.green))),
+            ))),
+            Expanded(child: Row(children: [
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: IconButton(onPressed: null, icon: Icon(Icons.android_outlined,size: 30,)),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("BID",textAlign: TextAlign.center,style: _style(Colors.black))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("AF",textAlign: TextAlign.center,style: _style(Colors.red))),
+              )
+            ],)),
+            Expanded(child: Row(children: [
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("S",textAlign: TextAlign.center,style: _style(Colors.blue))),
+              ),
+              SizedBox(width: 20,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("S",textAlign: TextAlign.center,style: _style(Colors.blue))),
+              ),
+              SizedBox(width: 20,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("PROPOSAL",textAlign: TextAlign.center,style: _style(Colors.orange))),
+              ),SizedBox(width: 20,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("PROPOSAL",textAlign: TextAlign.center,style: _style(Colors.orange))),
+              )
+            ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,)),
+            Expanded(child: Align(alignment: Alignment.centerLeft,child: ArrowElement(
+              id: 'p0',
+              targetId: isCheckConfirm[0] ? 'p1' : null,
+              sourceAnchor: Alignment.bottomCenter,
+              targetAnchor: Alignment.topCenter,
+              color: Colors.purple,
+              child: GestureDetector(child: Text("S",textAlign: TextAlign.center,style: _style(Colors.blue))),
+            ))),
+            Expanded(child: Align(alignment: Alignment.centerLeft,child: ArrowElement(
+              id: 'p0',
+              targetId: isCheckConfirm[0] ? 'p1' : null,
+              sourceAnchor: Alignment.bottomCenter,
+              targetAnchor: Alignment.topCenter,
+              color: Colors.purple,
+              child: GestureDetector(child: Text("S",textAlign: TextAlign.center,style: _style(Colors.blue))),
+            ))),
+            Expanded(child: Row(children: [
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("PROD",textAlign: TextAlign.center,style: _style(Colors.red))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: GestureDetector(child: Text("BID",textAlign: TextAlign.center,style: _style(Colors.red))),
+              ),
+              SizedBox(width: 50,),
+              ArrowElement(
+                id: 'p0',
+                targetId: isCheckConfirm[0] ? 'p1' : null,
+                sourceAnchor: Alignment.bottomCenter,
+                targetAnchor: Alignment.topCenter,
+                color: Colors.purple,
+                child: IconButton(onPressed: null, icon: Icon(Icons.assistant_photo_sharp,size: 50,)),
+              )
+            ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,)),
+          ],mainAxisAlignment: MainAxisAlignment.center),
         ),
       );
 
-  List<String> _getTarget(List<int> listTree){
-    List<String> targets = [];
-    for (var item in listTree){
-      if (isCheckConfirm[item]){
-        targets.add('p${item+1}');
-      }else{
-        targets.remove('p${item+1}');
-      }
-    }
-    print("target kaka : $targets");
-    return targets;
-  }
+
 }
 
